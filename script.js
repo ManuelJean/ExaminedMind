@@ -1,14 +1,14 @@
+'use strict';
+
 /* ============================================================
    THE EXAMINED MIND — SCRIPT.JS
    Handles: articles data, rendering, search, filter,
             modal, scroll effects, animations, nav.
    ============================================================ */
 
-'use strict';
-
 /* ── 1. ARTICLES DATA ─────────────────────────────────────── */
 const articles = [
-{
+  {
     id: 1,
     title: 'Why Incentives Shape Human Behavior More Than We Admit',
     category: 'Economics',
@@ -452,37 +452,40 @@ const categories = [
 let currentCategory = 'all';
 let currentModalId = null;
 
-/* ── 4. DOM REFERENCES ────────────────────────────────────── */
+/* ── 4. DOM REFERENCES (all optional — script must not crash if any are absent) ── */
 const $  = (id) => document.getElementById(id);
 const $$ = (sel) => document.querySelectorAll(sel);
 
-const navbar         = $('navbar');
-const scrollProgress = $('scrollProgress');
-const scrollTopBtn   = $('scrollTop');
-const hamburger      = $('hamburger');
-const navLinks       = $('navLinks');
-const mobileOverlay  = $('mobileOverlay');
-const searchToggle   = $('searchToggle');
-const searchBar      = $('searchBar');
-const searchClose    = $('searchClose');
-const searchInput    = $('searchInput');
-const searchResults  = $('searchResults');
-const featuredEl     = $('featuredArticle');
-const articlesGrid   = $('articlesGrid');
-const noResults      = $('noResults');
-const categoriesGrid = $('categoriesGrid');
-const modalOverlay   = $('modalOverlay');
-const modal          = $('modal');
-const modalClose     = $('modalClose');
-const modalBody      = $('modalBody');
-const modalMeta      = $('modalMeta');
-const modalPrev      = $('modalPrev');
-const modalNext      = $('modalNext');
-const newsletterForm = $('newsletterForm');
-const formSuccess    = $('formSuccess');
+const navbar            = $('navbar');
+const scrollProgress    = $('scrollProgress');
+const scrollTopBtn      = $('scrollTop');
+const hamburger         = $('hamburger');
+const navLinks          = $('navLinks');
+const mobileOverlay     = $('mobileOverlay');
+const searchToggle      = $('searchToggle');
+const searchBar         = $('searchBar');
+const searchClose       = $('searchClose');
+const searchInput       = $('searchInput');
+const searchResults     = $('searchResults');
+const featuredEl        = $('featuredArticle');
+const articlesGrid      = $('articlesGrid');
+const noResults         = $('noResults');
+const categoriesGrid    = $('categoriesGrid');
+const modalOverlay      = $('modalOverlay');
+const modal             = $('modal');
+const modalClose        = $('modalClose');
+const modalBody         = $('modalBody');
+const modalMeta         = $('modalMeta');
+const modalPrev         = $('modalPrev');
+const modalNext         = $('modalNext');
+const newsletterForm    = $('newsletterForm');
+const formSuccess       = $('formSuccess');
+const heroEssayCount    = $('heroEssayCount');
+const heroCategoryCount = $('heroCategoryCount');
 
 /* ── 5. NAVBAR ────────────────────────────────────────────── */
 function initNavbar() {
+  if (!navbar) return;
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
     updateScrollProgress();
@@ -492,17 +495,15 @@ function initNavbar() {
 }
 
 function updateScrollProgress() {
+  if (!scrollProgress) return;
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
   scrollProgress.style.width = `${pct}%`;
 }
 
 function updateScrollTop() {
-  if (window.scrollY > 500) {
-    scrollTopBtn.hidden = false;
-  } else {
-    scrollTopBtn.hidden = true;
-  }
+  if (!scrollTopBtn) return;
+  scrollTopBtn.hidden = window.scrollY <= 500;
 }
 
 function updateActiveNav() {
@@ -524,6 +525,8 @@ function updateActiveNav() {
 
 /* ── 6. MOBILE MENU ───────────────────────────────────────── */
 function initMobileMenu() {
+  if (!hamburger || !navLinks || !mobileOverlay) return;
+
   hamburger.addEventListener('click', toggleMobileMenu);
   mobileOverlay.addEventListener('click', closeMobileMenu);
 
@@ -533,6 +536,7 @@ function initMobileMenu() {
 }
 
 function toggleMobileMenu() {
+  if (!navLinks || !hamburger || !mobileOverlay) return;
   const isOpen = navLinks.classList.toggle('open');
   hamburger.classList.toggle('open', isOpen);
   mobileOverlay.classList.toggle('visible', isOpen);
@@ -542,6 +546,7 @@ function toggleMobileMenu() {
 }
 
 function closeMobileMenu() {
+  if (!navLinks || !hamburger || !mobileOverlay) return;
   navLinks.classList.remove('open');
   hamburger.classList.remove('open');
   mobileOverlay.classList.remove('visible');
@@ -552,6 +557,8 @@ function closeMobileMenu() {
 
 /* ── 7. SEARCH ────────────────────────────────────────────── */
 function initSearch() {
+  if (!searchToggle || !searchBar || !searchClose || !searchInput || !searchResults) return;
+
   searchToggle.addEventListener('click', openSearch);
   searchClose.addEventListener('click', closeSearch);
   searchInput.addEventListener('input', handleSearch);
@@ -562,6 +569,7 @@ function initSearch() {
 }
 
 function openSearch() {
+  if (!searchBar || !searchToggle || !searchInput) return;
   searchBar.classList.add('open');
   searchBar.setAttribute('aria-hidden', 'false');
   searchToggle.setAttribute('aria-expanded', 'true');
@@ -569,6 +577,7 @@ function openSearch() {
 }
 
 function closeSearch() {
+  if (!searchBar || !searchToggle || !searchInput || !searchResults) return;
   searchBar.classList.remove('open');
   searchBar.setAttribute('aria-hidden', 'true');
   searchToggle.setAttribute('aria-expanded', 'false');
@@ -577,6 +586,7 @@ function closeSearch() {
 }
 
 function handleSearch() {
+  if (!searchInput || !searchResults) return;
   const q = searchInput.value.trim().toLowerCase();
 
   if (!q) { searchResults.innerHTML = ''; return; }
@@ -623,6 +633,7 @@ function handleSearch() {
 
 /* ── 8. FEATURED ARTICLE ──────────────────────────────────── */
 function renderFeatured() {
+  if (!featuredEl) return;
   const article = articles.find((a) => a.featured);
   if (!article) return;
 
@@ -664,11 +675,13 @@ function renderFeatured() {
 
 /* ── 9. ARTICLES GRID ─────────────────────────────────────── */
 function renderArticles(filter = 'all') {
+  if (!articlesGrid) return;
+
   const filtered = filter === 'all'
     ? articles
     : articles.filter((a) => a.category === filter);
 
-  noResults.hidden = filtered.length > 0;
+  if (noResults) noResults.hidden = filtered.length > 0;
 
   articlesGrid.innerHTML = filtered
     .sort((a, b) => b.id - a.id)
@@ -730,17 +743,22 @@ function initFilters() {
 
 /* ── 11. CATEGORIES SECTION ───────────────────────────────── */
 function renderCategories() {
+  if (!categoriesGrid) return;
+
   categoriesGrid.innerHTML = categories
     .map((cat) => {
       const count = articles.filter((a) => a.category === cat.name).length;
+      const countLabel = count === 0
+        ? 'Coming soon'
+        : `${count} ${count === 1 ? 'Essay' : 'Essays'}`;
       return `
       <div class="category-card fade-in" role="button" tabindex="0"
            aria-label="Browse ${cat.name} essays"
            data-filter="${cat.name}">
         <div class="category-icon" aria-hidden="true">${cat.icon}</div>
         <p class="category-name">${cat.name}</p>
-        <p class="category-desc">${cat.desc || cat.description}</p>
-        <p class="category-count">${count} ${count === 1 ? 'Essay' : 'Essays'}</p>
+        <p class="category-desc">${cat.description}</p>
+        <p class="category-count">${countLabel}</p>
       </div>`;
     })
     .join('');
@@ -749,8 +767,8 @@ function renderCategories() {
     const filter = card.dataset.filter;
 
     const activate = () => {
-      // Scroll to articles, apply filter
-      document.getElementById('articles').scrollIntoView({ behavior: 'smooth' });
+      const articlesSection = document.getElementById('articles');
+      if (articlesSection) articlesSection.scrollIntoView({ behavior: 'smooth' });
       setTimeout(() => {
         const btn = document.querySelector(`.filter-btn[data-category="${filter}"]`);
         if (btn) btn.click();
@@ -766,6 +784,7 @@ function renderCategories() {
 
 /* ── 12. MODAL ────────────────────────────────────────────── */
 function openModal(id) {
+  if (!modalOverlay || !modalBody || !modalMeta) return;
   const article = articles.find((a) => a.id === id);
   if (!article) return;
   currentModalId = id;
@@ -798,8 +817,8 @@ function openModal(id) {
   // Nav buttons
   const ids = articles.map((a) => a.id);
   const idx = ids.indexOf(id);
-  modalPrev.disabled = idx <= 0;
-  modalNext.disabled = idx >= ids.length - 1;
+  if (modalPrev) modalPrev.disabled = idx <= 0;
+  if (modalNext) modalNext.disabled = idx >= ids.length - 1;
 
   // Open
   modalOverlay.classList.add('open');
@@ -807,10 +826,11 @@ function openModal(id) {
   document.body.style.overflow = 'hidden';
 
   // Focus trap
-  setTimeout(() => modalClose.focus(), 50);
+  setTimeout(() => { if (modalClose) modalClose.focus(); }, 50);
 }
 
 function closeModal() {
+  if (!modalOverlay) return;
   modalOverlay.classList.remove('open');
   modalOverlay.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
@@ -818,34 +838,41 @@ function closeModal() {
 }
 
 function initModal() {
+  if (!modalOverlay || !modal || !modalClose || !modalBody || !modalMeta) return;
+
   modalClose.addEventListener('click', closeModal);
 
   modalOverlay.addEventListener('click', (e) => {
     if (e.target === modalOverlay) closeModal();
   });
 
-  modalPrev.addEventListener('click', () => {
-    const ids = articles.map((a) => a.id);
-    const idx = ids.indexOf(currentModalId);
-    if (idx > 0) openModal(ids[idx - 1]);
-  });
+  if (modalPrev) {
+    modalPrev.addEventListener('click', () => {
+      const ids = articles.map((a) => a.id);
+      const idx = ids.indexOf(currentModalId);
+      if (idx > 0) openModal(ids[idx - 1]);
+    });
+  }
 
-  modalNext.addEventListener('click', () => {
-    const ids = articles.map((a) => a.id);
-    const idx = ids.indexOf(currentModalId);
-    if (idx < ids.length - 1) openModal(ids[idx + 1]);
-  });
+  if (modalNext) {
+    modalNext.addEventListener('click', () => {
+      const ids = articles.map((a) => a.id);
+      const idx = ids.indexOf(currentModalId);
+      if (idx < ids.length - 1) openModal(ids[idx + 1]);
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
     if (!modalOverlay.classList.contains('open')) return;
     if (e.key === 'Escape') closeModal();
-    if (e.key === 'ArrowLeft') modalPrev.click();
-    if (e.key === 'ArrowRight') modalNext.click();
+    if (e.key === 'ArrowLeft' && modalPrev) modalPrev.click();
+    if (e.key === 'ArrowRight' && modalNext) modalNext.click();
   });
 }
 
 /* ── 13. SCROLL TO TOP ────────────────────────────────────── */
 function initScrollTop() {
+  if (!scrollTopBtn) return;
   scrollTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
@@ -853,21 +880,27 @@ function initScrollTop() {
 
 /* ── 14. NEWSLETTER ───────────────────────────────────────── */
 function initNewsletter() {
+  if (!newsletterForm) return;
   newsletterForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = $('emailInput').value.trim();
+    const emailInput = $('emailInput');
+    if (!emailInput) return;
+    const email = emailInput.value.trim();
     if (!email || !email.includes('@')) {
-      $('emailInput').focus();
+      emailInput.focus();
       return;
     }
-    formSuccess.hidden = false;
-    $('emailInput').value = '';
-    setTimeout(() => { formSuccess.hidden = true; }, 5000);
+    if (formSuccess) formSuccess.hidden = false;
+    emailInput.value = '';
+    setTimeout(() => { if (formSuccess) formSuccess.hidden = true; }, 5000);
   });
 }
 
 /* ── 15. FADE-IN OBSERVER ─────────────────────────────────── */
 function initFadeIns() {
+  const targets = $$('.fade-in');
+  if (!targets.length) return;
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -880,7 +913,7 @@ function initFadeIns() {
     { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
 
-  $$('.fade-in').forEach((el) => observer.observe(el));
+  targets.forEach((el) => observer.observe(el));
 }
 
 /* ── 16. SMOOTH SCROLL ────────────────────────────────────── */
@@ -905,7 +938,8 @@ function initFooterCategoryLinks() {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const filter = link.dataset.filter;
-        document.getElementById('articles').scrollIntoView({ behavior: 'smooth' });
+        const articlesSection = document.getElementById('articles');
+        if (articlesSection) articlesSection.scrollIntoView({ behavior: 'smooth' });
         setTimeout(() => {
           const btn = document.querySelector(`.filter-btn[data-category="${filter}"]`);
           if (btn) btn.click();
@@ -917,6 +951,9 @@ function initFooterCategoryLinks() {
 
 /* ── 18. INIT ─────────────────────────────────────────────── */
 function init() {
+  if (heroEssayCount) heroEssayCount.textContent = String(articles.length);
+  if (heroCategoryCount) heroCategoryCount.textContent = String(categories.length);
+
   renderFeatured();
   renderArticles('all');
   renderCategories();
@@ -937,4 +974,3 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
-
