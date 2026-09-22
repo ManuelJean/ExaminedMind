@@ -407,6 +407,47 @@ const articles = [
 <p>None of this makes uncertainty disappear. That is the deeper point, and it cuts against the popular hope that enough data or enough modeling will someday remove risk from life. It won't. What mathematics offers instead is a way of standing inside uncertainty without being ruled by it—a set of habits for weighing a hundred futures at once rather than fixating on the one that frightens you most. The world stays unpredictable. What changes is whether you're reacting to it or reasoning through it.</p>`,
     featured: false,
   },
+  {
+    id: 15,
+    title: 'Why We Trust Algorithms More Than We Trust Ourselves',
+    category: 'Technology',
+    author: 'The Editor',
+    date: 'September 22, 2026',
+    readingTime: '9 min read',
+    excerpt: 'We follow a friend\'s recommendation with a dozen questions but accept a star rating without any. Examining what an algorithmic number actually measures, and the gap between that and what we assume it means.',
+    content: `<p>A few years ago I noticed something strange about how I make small decisions. If a friend tells me a restaurant is good, I ask a follow-up question. Which dish. How crowded. Whether the service is slow. If an app gives the restaurant 4.3 stars, I just go. No follow-up questions. No doubt. The number settles it.</p>
+
+<p>That is a strange thing to do when you think about it. A friend's opinion comes from someone who knows me, who has some sense of what I like, who can be wrong in ways I can predict and correct for. A star rating comes from thousands of strangers I know nothing about, compressed into a single decimal by a process I have never seen and could not explain if asked. And yet the number wins almost every time.</p>
+
+<h3>The trust we never agreed to give</h3>
+<p>Nobody sat down and decided that algorithmic output deserves more trust than human judgment. It happened by accumulation. Each individual case seemed reasonable. A search engine ranks results better than I could by hand. A spam filter catches junk mail more reliably than I would if I read every subject line myself. A navigation app knows the current state of traffic in a way no human passenger does. In each of these cases, deferring to the algorithm was the correct call, because the algorithm actually had access to information or processing power that I lacked.</p>
+
+<p>The trouble is that this habit of deferring does not stay contained to the cases where it is earned. It generalizes. Once you get used to trusting a number over your own judgment in one domain, you start doing it in domains where the number is not actually more informed than you are, just more confident-looking. A credit score. A personality match on a dating app. A predictive policing model. A hiring algorithm that filters resumes before a human ever reads them. None of these systems necessarily know more than a careful human would. They just present their answer with the same clean, decimal-point authority as the traffic app, and we respond to that authority the same way regardless of whether it is deserved.</p>
+
+<h3>What the number hides</h3>
+<p>Part of the problem is that a single output number erases the process that produced it, and most people never ask what that process actually was.</p>
+
+<p>Take a star rating. A 4.3 could mean thousands of consistently positive reviews. It could also mean a mix of five-star reviews from people who barely used the product and one-star reviews from people who had a genuinely bad experience, averaged into something that looks moderate but represents nobody's actual view. The number is the same either way. The information behind it is completely different, and the number gives you no way to tell which situation you are in unless you go digging.</p>
+
+<p>Recommendation algorithms have a similar issue. When a platform tells you "you might also like this," it usually means people with a similar viewing or purchase history also engaged with this item. That is not the same as saying the item is good, or that it fits your actual taste. It means the algorithm found a correlation in a dataset. Correlations found in large datasets are often real and often useful, but they are also often shallow, and the algorithm has no way of telling you which kind you're looking at. It just hands you the recommendation with the same tone of confidence either way.</p>
+
+<p>This is the part that I think gets missed most often: the algorithm is not lying to you, exactly. It genuinely did the calculation. But the calculation answers a much narrower question than the one you think you're asking. You want to know if the restaurant is good. The algorithm can only tell you what fraction of past visitors clicked five stars.</p>
+
+<h3>Why the trade feels worth it</h3>
+<p>None of this means algorithmic judgment is bad or that we should go back to relying purely on gut instinct. Human judgment has its own well-documented failures. We are swayed by whoever spoke most recently or most confidently. We remember vivid stories better than accurate statistics. We are bad at holding more than a few variables in our head at once, so when a decision genuinely depends on twenty different factors, a human trying to weigh all of them informally is not obviously more reliable than a system that at least weighs them consistently.</p>
+
+<p>So the trade is real. Algorithms are often more consistent than we are, even when they are not smarter than we are. Consistency has value on its own. A biased algorithm applied the same way to everyone is at least a bias you can study and correct. A biased human making judgment calls case by case is much harder to audit, because the bias shows up differently every time.</p>
+
+<p>What I think we actually want is not less algorithmic input but a clearer sense of when the number is measuring something close to what we care about and when it is measuring something adjacent to it that just happens to be easier to compute. Those are very different situations, and right now we mostly treat them the same, because both situations produce a clean number and a clean number feels like an answer.</p>
+
+<h3>Holding the number at arm's length</h3>
+<p>The fix, if there is one, is not complicated to describe even if it is hard to practice. Before accepting an algorithmic output as a decision, it helps to ask what exactly was measured, and whether that measurement is actually close to the question you're trying to answer.</p>
+
+<p>A 4.3-star rating measured average satisfaction across an unknown mix of people with unknown standards. That is close to, but not identical to, "will I enjoy this." A credit score measures past repayment behavior under past circumstances. That is close to, but not identical to, "how trustworthy is this person right now." A predictive model measures patterns in historical data. That is close to, but not identical to, "what will actually happen going forward," especially if the world has changed since the data was collected.</p>
+
+<p>In every one of these cases the gap between what was measured and what we actually want to know is small enough to ignore most of the time, and large enough to matter some of the time. The skill worth building is not distrust of algorithms in general. It's the habit of noticing, case by case, how wide that particular gap is, and deciding on purpose how much weight the number deserves. Right now most of us skip that step entirely. We just look at the decimal and go.</p>`,
+    featured: false,
+  },
 ];
 
 /* ── 2. CATEGORIES DATA ───────────────────────────────────── */
